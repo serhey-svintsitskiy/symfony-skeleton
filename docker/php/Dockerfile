@@ -8,6 +8,8 @@ RUN apt-get update \
 
 RUN mkdir -p /var/lock/apache2 /var/run/apache2 /var/run/sshd /var/log/supervisor
 
+RUN apt-get update && apt-get install -y libpq-dev && docker-php-ext-install pdo pdo_pgsql
+
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
 RUN pecl install memcached xdebug
