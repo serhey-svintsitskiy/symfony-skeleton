@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Public;
 
 use App\Model\Public\User\UserListRequest;
-use App\Repository\UserRepository;
+use App\Repository\Common\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
