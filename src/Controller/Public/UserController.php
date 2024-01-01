@@ -13,7 +13,6 @@ use Symfony\Component\HttpKernel\Attribute\MapQueryString;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route(path: '/api/users')]
-
 class UserController extends AbstractController
 {
     public function __construct(
@@ -23,7 +22,7 @@ class UserController extends AbstractController
 
     #[Route(path: '', methods: [Request::METHOD_GET])]
     public function cities(
-      #[MapQueryString]
+        #[MapQueryString]
         UserListRequest $request,
     ): Response {
         return $this->json($this->userRepository->findAll());
