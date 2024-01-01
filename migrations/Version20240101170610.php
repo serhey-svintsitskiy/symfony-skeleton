@@ -14,7 +14,7 @@ final class Version20240101170610 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'CREATE TABLE refresh_token';
     }
 
     public function up(Schema $schema): void
