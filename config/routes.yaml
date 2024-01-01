@@ -1,6 +1,9 @@
 api_login_check:
     path: /api/auth/login
 
+api_refresh_token:
+    path: /api/auth/refresh
+
 controllers:
     resource:
         path: ../src/Controller/
