@@ -2,20 +2,18 @@
 
 namespace App\Entity;
 
-use App\Entity\Trait\HasCreatedAt;
-use App\Entity\Trait\HasUpdatedAt;
 use App\Repository\Common\UserRepository;
+use DateTimeImmutable;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
+#[ORM\HasLifecycleCallbacks]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    use HasCreatedAt;
-    use HasUpdatedAt;
-
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'SEQUENCE')]
     #[ORM\Column]
@@ -30,6 +28,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     private ?string $password = null;
+
+    #[ORM\Column(type: 'datetime')]
+    private DateTimeInterface $createdAt;
+
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private ?DateTimeInterface $updatedAt = null;
+
+    #[ORM\PrePersist]
+    public function prePersist(): void
+    {
+        $this->createdAt ??= new DateTimeImmutable();
+    }
+
+    #[ORM\PreUpdate]
+    public function preUpdate(): void
+    {
+        $this->updatedAt = new DateTimeImmutable();
+    }
 
     public function getId(): ?int
     {
@@ -100,5 +116,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getCreatedAt(): DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(DateTimeInterface $createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    public function getUpdatedAt(): ?DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?DateTimeInterface $updatedAt): void
+    {
+        $this->updatedAt = $updatedAt;
     }
 }
