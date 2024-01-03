@@ -8,8 +8,6 @@ services:
         environment:
             PHP_IDE_CONFIG: 'serverName=sapi.docker'
             PROJECT_DOMAIN: 'http://localhost:8081'
-            APP_ENV: 'dev'
-            APP_DEBUG: 1
         expose:
             - 9003
             - 9090

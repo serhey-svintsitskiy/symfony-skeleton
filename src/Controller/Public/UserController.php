@@ -29,7 +29,8 @@ class UserController extends AbstractController
     ) {
     }
 
-    #[Route(path: '', methods: [Request::METHOD_GET])]
+    #[Route(path: '', methods: [Request::METHOD_GET], format: 'json')]
+    #[AOA\QueryPageParameter]
     #[AOA\ResponseOk(type: UserListResponse::class)]
     public function getList(
         #[MapQueryString(

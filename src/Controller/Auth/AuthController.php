@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Auth;
 
+use App\Attribute\OpenApi as AOA;
 use App\Entity\User;
 use App\Model\Auth\ChangePasswordRequest;
 use App\Model\Auth\SignUpRequest;
@@ -28,7 +29,8 @@ class AuthController extends AbstractController
     ) {
     }
 
-    #[Route(path: '/signup', methods: [Request::METHOD_POST])]
+    #[Route(path: '/signup', methods: [Request::METHOD_POST], format: 'json')]
+    #[AOA\RequestBody(type: SignUpRequest::class)]
     public function signUp(
         #[MapRequestPayload]
         SignUpRequest $signUpRequest
@@ -38,7 +40,7 @@ class AuthController extends AbstractController
         return $this->successHandler->handleAuthenticationSuccess($user);
     }
 
-    #[Route(path: '/change-password', methods: [Request::METHOD_PATCH])]
+    #[Route(path: '/change-password', methods: [Request::METHOD_PATCH], format: 'json')]
     #[isGranted('ROLE_USER')]
     public function changePassword(
         #[MapRequestPayload]
